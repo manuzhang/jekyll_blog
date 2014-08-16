@@ -1,17 +1,18 @@
 ---
 author: manuzhang
 comments: true
-date: 2012-08-01 04:03:47+00:00
+date: {}
 layout: post
-slug: a-month-later
+slug: "a-month-later"
 title: A month later...
 wordpress_id: 261
-categories:
-- database
-- 实习笔记
-tags:
-- Cassandra
-- nosql
+categories: 
+  - database
+  - 实习笔记
+tags: 
+  - Cassandra
+  - nosql
+published: true
 ---
 
 It's already a month after I started my internship. Let's see how it is going.
@@ -74,50 +75,19 @@ The picture visualizes the so called CAP theorem posited by [Eric Brewer](http:/
 
 <blockquote>
   Consistency
-
-
-  
-  
-> 
-> <blockquote>
     All database clients will read the same value for the same query, even given con- current updates.
+</blockquote>
 
-
-  </blockquote>
-> 
-> 
-  
+<blockquote>
   Availability
-
-
-  
-  
-> 
-> <blockquote>
     All database clients will always be able to read and write data.
-
-
-  </blockquote>
-> 
-> 
-  
+</blockquote>
+<blockquote>
   Partition Tolerance
-
-
-  
-  
-> 
-> <blockquote>
     The database can be split into multiple machines; it can continue functioning in the face of network segmentation breaks.
-
-
-  </blockquote>
-> 
-> 
-  
+</blockquote>
+<blockquote>  
   Brewer’s theorem is that in any given system, you can strongly support only two of the three. This is analogous to the saying you may have heard in software development: “You can have it good, you can have it fast, you can have it cheap: pick two.”
-
-
 </blockquote>
 
 
@@ -127,6 +97,3 @@ We can see where Greenplum and Cassandra lie in the continuum. At the first sigh
 
 
 My following posts will mainly cover various aspects of Cassandra. I'm reading the [Definitive Guide](http://www.ppurl.com/2010/12/cassandra-the-definitive-guide.html) as well as source codes.
-
-
-
