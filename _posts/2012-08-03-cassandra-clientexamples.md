@@ -1,85 +1,37 @@
 ---
-author: manuzhang
 comments: true
-date: 2012-08-03 06:38:06+00:00
 layout: post
-slug: cassandra-clientexamples
 title: Cassandra ClientExamples
-wordpress_id: 276
-categories:
-- database
-- 实习笔记
-tags:
-- Cassandra
-- Java
-- Thrift
 ---
 
 Just got my feet wet in writing a Cassandra client via [Thrift API](http://wiki.apache.org/cassandra/API) so I'd like to share my experience here.
-
-
-
 Thrift API is to Cassandra what [JDBC](http://en.wikipedia.org/wiki/JDBC) ([ODBC](http://en.wikipedia.org/wiki/Odbc)) is to a RDBMS. It provides methods for querying and updating data in Cassandra.
-
-
 
 I intended to explore into Cassandra code base, and thus I [ran it in Eclipse](http://wiki.apache.org/cassandra/RunningCassandraInEclipse). My Cassandra version is **1.2.0-SNAPSHOT**, so I have trouble in compiling or running examples provided in the [Definitive Guide](http://www.ppurl.com/2010/12/cassandra-the-definitive-guide.html) (for **0.7**) and on the [official website](http://wiki.apache.org/cassandra/ClientExamples) (for **1.0**). The basic idea is the same though. Let's get started.
 
-
-
-<!-- more -->
-
-
-
-# Prerequisites
-
-
+## Prerequisites
 
 First of all, I created a new Java project in Eclipse and added to my classpath the needed JARs:
 
-
-
-
-
-
-
-  * libthrift-0.7.0.jar
-
-
-  * log4j-1.2.16.jar
-
-
-  * slf4j-api-1.6.1.jar
-
-
-  * slf4j-log4j12-1.6.1.jar
-
-
-  * apache-cassandra-1.2.0-SNAPSHOT.jar
-
-
+* libthrift-0.7.0.jar
+* log4j-1.2.16.jar
+* slf4j-api-1.6.1.jar
+* slf4j-log4j12-1.6.1.jar
+* apache-cassandra-1.2.0-SNAPSHOT.jar
 
 Where to get the JARs? From the Cassandra I cloned.
 
+I found first four in `cassandra-trunk/lib` and generated the last one in terminal:
 
-
-I found first four in [cci]cassandra-trunk/lib[/cci] and generated the last one in terminal:
-
-[cc]
+```
 ant jar
-[/cc]
+```
 
-This performed a complete build and output the JAR file into the [cci]cassandra-trunk/build[/cci] directory.
+This performed a complete build and output the JAR file into the `cassandra-trunk/build` directory.
 
+## And the Code
 
-
-
-
-# And the Code
-
-
-
-[cc lang="java"]
+```java
 package org.apache.cassandra.examples;
 
 import java.io.UnsupportedEncodingException;
@@ -220,60 +172,30 @@ public class SimpleWriteRead
         tr.close();
     }
 }
-[/cc]
+```
 
 Don't worry about the long list of exceptions. Eclipse will handle that. I did copy most codes (comments) from the two aforementioned sources. The only original work is to set strategy class and its replication factor option for the keyspace. I guess this has been mandatory since **1.1** ([CASSANDRA-4294](https://issues.apache.org/jira/browse/CASSANDRA-4294)).
 
-
-
-
-
-# RPC
-
-
+## RPC
 
 Remote Procedural Call (RPC) in Cassandra is implemented against [Apache Thrift](http://en.wikipedia.org/wiki/Apache_Thrift) framework:
 
-
-
 ![apache_thrift_arch](http://upload.wikimedia.org/wikipedia/en/thumb/d/df/Apache_Thrift_architecture.png/331px-Apache_Thrift_architecture.png)
 
+## Outputs
 
-
-
-
-# Outputs
-
-
-
-[cc]
+```
  name:manu:1343974116447
  age:21:1343974116447
  age:21:1343974116447
  name:manu:1343974116447
  1
  1024
-[/cc]
-
+```
 From the Datastax documentation of [using CLI](http://www.datastax.com/docs/1.0/dml/using_cli):
 
-
-
-
-
-<blockquote>
-  Cassandra stores all data internally as hex byte arrays by default. If you do not specify a default row key validation class, column comparator and column validation class when you define the column family, Cassandra CLI will expect input data for row keys, column names, and column values to be in hex format (and data will be returned in hex format).
-
-
-  
+> Cassandra stores all data internally as hex byte arrays by default. If you do not specify a default row key validation class, column comparator and column validation class when you define the column family, Cassandra CLI will expect input data for row keys, column names, and column values to be in hex format (and data will be returned in hex format).
   To pass and return data in human-readable format, you can pass a value through an encoding function.
 
-
-</blockquote>
-
-
-
 I suppose it is the same with Cassandra Thrift API and my encoding here is UTF8.
-
-
 

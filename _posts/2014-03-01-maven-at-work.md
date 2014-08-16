@@ -1,20 +1,10 @@
 ---
-author: manuzhang
 comments: true
-date: {}
 layout: post
-slug: "maven-at-work"
 title: Maven at work
-wordpress_id: 1115
-categories: 
-  - maven
-  - project management
-published: true
 ---
 
-<blockquote>
-Apache Maven is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information.
-</blockquote>
+> Apache Maven is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information.
 
 The concept of "software project management" (SPM) has never occurred to me till I started my career and worked on Hadoop at Intel. The Hadoop community was shifting from [Ant](http://ant.apache.org/) to [Maven](http://maven.apache.org/index.html) then so Maven happened to be the first SPM tool I tried to make sense of. When starting out, my learning materials mainly came from 3 sources, manuals on Maven website, [Maven: The definitive Guide](http://www.ppurl.com/2009/12/maven-the-definitive-guide.html) and other tutorials on the web.
 

@@ -1,23 +1,12 @@
 ---
-author: manuzhang
 comments: true
-date: {}
 layout: post
-slug: "wordcount-in-scala"
 title: WordCount in Scala
-wordpress_id: 1068
-categories: 
-  - 实习笔记
-tags: 
-  - scala
-published: true
 ---
 
 [Reynold S. Xin](http://www.cs.berkeley.edu/~rxin/) from AMPLab, UCB is visiting IMC and giving courses on Spark and Shark.  
 
-<blockquote>
-Spark is an open source cluster computing system that aims to make data analytics fast — both fast to run and fast to write.
-</blockquote>
+> Spark is an open source cluster computing system that aims to make data analytics fast — both fast to run and fast to write.
 
 So basically we could do MapReduce-like job in Spark. Probably our codes will be more intuitive and also run faster than Hadoop. Here's the WordCount example:
 
