@@ -1,240 +1,156 @@
 ---
-author: manuzhang
-comments: true
-date: 2011-10-22 15:00:55+00:00
 layout: post
-published: false
-slug: fold-in-haskell
 title: fold in Haskell
-wordpress_id: 59
-categories:
-- Haskell
-tags:
-- fold
-- functional programming
+comments: true
 ---
 
-**WARNING: this article needs revision**
+## Overview
 
 
+```haskell
+fold :: (a -> b -> b) -> b -> ([a] -> b)
+fold f v [] = v
+fold f v (x:xs) = f x (fold f v xs)
+```
 
-**Overview**
+Given a function `f` of type `a -> b -> b` and a value `v` of type `b`, the function `fold f v` processes a list of type `[a]` to give type `b` by replacing the `nil` constructor [] at the end of the list by the value `v`, and each `cons` constructor `:` within the list by the function `f`. The constructor `:` can be replaced by a built-in function as well as user-defined function, often defined as a nameless function using the lambda notation.
 
-`<br />
-<strong>fold :: (a -> b -> b) -> b -> ([a] -> b)</strong><br />
-<strong> fold f v [] = v</strong><br />
-<strong> fold f v (x:xs) = f x (fold f v xs)</strong><br />`
+```haskell
+sum :: [a] -> Int
+sum = fold (+) 0
 
+length :: [a] -> Int
+length = fold (x n -> 1 + n) 0
 
+reverse :: [a] -> [a]
+reverse = fold (x xs -> xs ++ [x]) []
 
-Given a function _f_ of type _a -> b -> b_ and a value _v_ of type _b_, the function _fold f v_ processes a list of type _[a]_ to give type _b_ by replacing the _nil_ constructor [] at the end of the list by the value _v_, and each _cons_ constructor (:) within the list by the function _f_
+map :: (a -> b) -> ([a] -> [b])
+map f = fold (x xs -> f x：xs) []
 
+filter :: (a -> Bool) -> ([a] -> [a])
+filter p = fold (x xs -> if p x then x:xs else xs) []
+```
 
+## The universal property of fold 
 
-The constructor (:) can be replaced by a built-in function as well as user-defined function, often defined as a nameless function using the lambda notation.
+```haskell
+g [] = v
+g (x:xs) = f x (g xs)
+<=>
+g = fold f v
+```
 
-
-
-<!-- more -->
-
-`<br />
-<strong>sum :: [a] -> Int</strong><br />
-<strong> sum = fold (+) 0</strong></p>
-<p><strong>length :: [a] -> Int</strong><br />
-<strong> length = fold (x n -> 1 + n) 0</strong></p>
-<p><strong>reverse :: [a] -> [a]</strong><br />
-<strong> reverse = fold (x xs -> xs ++ [x]) []</strong></p>
-<p><strong>map :: (a -> b) -> ([a] -> [b])</strong><br />
-<strong> map f = fold (x xs -> f x：xs) []</strong></p>
-<p><strong>filter :: (a -> Bool) -> ([a] -> [a])</strong><br />
-<strong> filter p = fold (x xs -> if p x then x:xs else xs) []</strong><br />`
-
-
-
-**The universal property of fold **
-
-`<br />
-<strong>g [] = v</strong><br />
-<strong> g (x:xs) = f x (g xs)</strong><br />
-<strong> <=></strong><br />
-<strong> g = fold f v</strong><br />`
-
-
-
-The **universal property** states that for finite lists the function _fold f v_ is not just a solution to its defining equations, but in fact the _unique_ solution
-
-
-
-Let's apply the **universal property** to proving the equation
-
-
-
-
-
-
-
-  * (+1).sum = fold (+) 1*
-
-
-
-where _f.g x = f(g(x))_
-
-
-
+The **universal property** states that for finite lists the function `fold f v` is not just a solution to its defining equations, but in fact the **unique** solution. Let's apply the **universal property** to prove the equation `(+1).sum = fold (+) 1` where `f.g x = f(g(x))`.
 The left-hand composite function sums a list and then increments the result. We can put it in a **Haskell** function
 
-`<br />
-<strong>((+1).sum) [] = sum [] + 1 = 0 + 1 = 1</strong><br />
-<strong> ((+1).sum) (x:xs) = sum (x:xs) + 1 = (x + sum xs) + 1 = x + (sum xs + 1) = (+) x (((+1).sum) xs)</strong><br />`
+```haskell
+((+1).sum) [] = sum [] + 1 = 0 + 1 = 1
+((+1).sum) (x:xs) = sum (x:xs) + 1 = (x + sum xs) + 1 = x + (sum xs + 1) = (+) x (((+1).sum) xs)
+```
+
+Now let's substitute `g` for `((+1).sum)` and yield the left half of **universal property** and by moving from left to right we can achieve that `v` is `1` and `f` is `+`. What do we get?
+
+The right-hand of the equation: `fold (+) 1`
 
 
 
-Now let's substitute _g_ for _((+1).sum)_ and yield the left half of **universal property** and by moving from left to right we can achieve that v is 1 and f is (+). What do we get?
+## The fusion property of fold
 
-
-
-The right-hand of the equation: _fold (+) 1_
-
-
-
-**The fusion property of fold**
-
-
-
-Remember the definition of sum:
-
-
-
-**`(+1).sum = (+1).fold (+) 0`**
-
-Connect it with our conclusion just now:
-
-
-
-**`(+1).sum = fold (+) 1`**
-
-We jump to a new equation:
-
-
-
-**`(+1).fold (+) 0 = fold (+) 1`**
+Remember the definition of sum: `(+1).sum = (+1).fold (+) 0`
+Connect it with our conclusion just now: `(+1).sum = fold (+) 1`
+We jump to a new equation: `(+1).fold (+) 0 = fold (+) 1`
 
 You may argue that there is no magic here since the difference between the two hands is whether increment by 1 at first or at last. Nonetheless, let's look at a more general case:
 
-`<br />
-<strong>h.fold g w [] = h (fold g w [])</strong><br />
-<strong> = h w</strong><br />
-<strong> h.fold g w (x:xs) = h (fold g w (x:xs))</strong><br />
-<strong> = h (g x (fold g w xs))</strong><br />
-<strong> = h.g x (fold g w xs)</strong><br />
-<strong> = h.g x y</strong><br />`
+```haskell
+h.fold g w [] = h (fold g w [])
+ = h w
+h.fold g w (x:xs) = h (fold g w (x:xs))
+ = h (g x (fold g w xs))
+ = h.g x (fold g w xs)
+ = h.g x y
+```
 
 Compare the above equation with
 
-
-
-`<br />
-<strong>g' [] = v</strong><br />
-<strong> g' = fold f v</strong><br />
-<strong> g' (x:xs) = f x (g' xs)</strong><br />`
+```haskell
+g' [] = v
+g' = fold f v
+g' (x:xs) = f x (g' xs)
+```
 
 Finally, here's the **fusion property**:
 
-
-
-`<br />
-<strong>h w = v</strong><br />
-<strong> h.g x y = f x (g' xs)</strong><br />
-<strong> = f x (h y)</strong><br />
-<strong> where y = fold g w xs</strong><br />
-<strong> =></strong><br />
-<strong> h.fold g w = fold f v</strong><br />`
+```haskell
+h w = v
+h.g x y = f x (g' xs)
+ = f x (h y)
+ where y = fold g w xs
+ =>
+ h.fold g w = fold f v
+```
 
 A simple application of fusion shows that:
 
-
-
-**`(x a).fold (x) b = fold (x) (b x a)`**
+`(x a).fold (x) b = fold (x) (b x a)`
 
 x is an arbitrary infix operator
 
+A more interesting example asserts that the `map` operator distributes over function composition `.`:
 
-
-A more interesting example asserts that the _map_ operator distributes over function composition (.):
-
-
-
-`<br />
-<strong>(map f).(map g) = map (f.g)</strong><br />
-<strong> (map f).(fold (x xs -> (g x):xs)) [] = fold (x xs -> ((f.g) x):xs) []</strong><br />`
+```haskell
+(map f).(map g) = map (f.g)
+(map f).(fold (x xs -> (g x):xs)) [] = fold (x xs -> ((f.g) x):xs) []
+```
 
 Try applying the **fusion property**:
 
-`<br />
-<strong>map f [] = []</strong><br />
-<strong> (map f).(x xs -> (g x):xs) x y = (x xs -> ((f.g) x):xs) x (map f y)</strong><br />
-<strong> where y = fold (x xs -> g x:xs) [] xs</strong><br />
-<strong> (map f).((g x):y) = ((f.g) x):(map f y)</strong><br />
-<strong> where y = fold map g [] xs</strong><br />`
+```haskell
+map f [] = []
+ (map f).(x xs -> (g x):xs) x y = (x xs -> ((f.g) x):xs) x (map f y)
+ where y = fold (x xs -> g x:xs) [] xs
+ (map f).((g x):y) = ((f.g) x):(map f y)
+ where y = fold map g [] xs
+```
 
+## Universality as a definition principle
 
-
-**Universality as a definition principle**
-
-
-
-Let's recall that
-
-
-
-**`sum = fold (+) 0`**
-
-but how we have deduced the answer?
-
-
+Let's recall that `sum = fold (+) 0` but how we have deduced the answer?
 
 First of all, we may think recursively to calculate the sum of a list of numbers:
 
+```haskell
+sum :: [Int] -> Int
+ sum [] = 0
+ sum (x:xs) = x + sum xs
+ = (+) x (sum xs)
+```
 
-
-`<br />
-<strong>sum :: [Int] -> Int</strong><br />
-<strong> sum [] = 0</strong><br />
-<strong> sum (x:xs) = x + sum xs</strong><br />
-<strong> = (+) x (sum xs)</strong><br />`
-
-If we substitute _sum_ for _g_, _(+)_ for _f_, ** for _v_, that is exactly what **universal property** states
-
-
-
+If we substitute `sum` for `g`, `(+)` for `f`, `**` for `v`, that is exactly what **universal property** states
 In more complicated cases, the solution may not be apparent from observation. Considering:
 
+```haskell
+map :: (a -> b) -> ([a] -> [b])
+ map f [] = []
+ map f (x:xs) = (f x):(map f xs)
+```
 
+So how to solve the equation `map f = fold g v`? As always, turn to the definition of **fold**:
 
-`<br />
-<strong>map :: (a -> b) -> ([a] -> [b])</strong><br />
-<strong> map f [] = []</strong><br />
-<strong> map f (x:xs) = (f x):(map f xs)</strong><br />`
+```haskell
+map f [] = v
+map f (x:xs) = g x (map f xs)
+```
 
-So how to solve the equation _map f = fold g v_? As always, turn to the definition of **fold**:
+It is immediate that `v = []`. From the second equation:
 
-
-
-`<br />
-<strong>map f [] = v</strong><br />
-<strong> map f (x:xs) = g x (map f xs)</strong><br />`
-
-It is immediate that _v = []_. From the second equation:
-
-
-
-`<br />
-<strong>map f (x:xs) = g x (map f xs)</strong><br />
-<strong> (f x):(map f xs) = g x (map f xs)</strong><br />
-<strong> (f x):ys = g x ys</strong><br />
-<strong> where ys = map f xs</strong><br />
-<strong> g = x ys -> (f x):ys</strong><br />
-<strong> => map f = fold (x ys -> (f x):ys) []</strong><br />`
-
-
+```haskell
+map f (x:xs) = g x (map f xs)
+ (f x):(map f xs) = g x (map f xs)
+ (f x):ys = g x ys
+ where ys = map f xs
+ g = x ys -> (f x):ys
+ => map f = fold (x ys -> (f x):ys) []
+```
 
