@@ -1,1 +1,1 @@
-Blog made with [jekyll](https://github.com/manuzhang/manuzhang.github.io)
+Blog made with [jekyll](http://jekyllrb.com/)
