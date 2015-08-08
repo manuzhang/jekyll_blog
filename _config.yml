@@ -15,7 +15,7 @@ sass:
 paginate: 5
 paginate_path: "page:num"
 ##The website description (to be used in meta tags)
-description: manu's blog
+description: manuzhang's blog
 ##Some frequently used keywords on your website
 keywords: distributed system, stream processing
 
@@ -34,6 +34,6 @@ links:
   github: manuzhang
 
 ##put desired image in img/ directory and set the value accordingly. If not defined, a placeholder image will be used.
-about_image: placeholder.jpg
+#about_image: placeholder.jpg
 ##comment this if you want full width posts with no sidebar
 sidebar: on
