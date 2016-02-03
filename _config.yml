@@ -4,8 +4,8 @@ name: Sisyphus Happy
 markdown: redcarpet
 redcarpet:
   extensions: ["no_intra_emphasis", "autolink", "tables"]
-##syntax highlighter. change it to pygments
-highlighter: pygments
+
+highlighter: rouge
 
 gems: [jekyll-paginate]
 ##define base_url for valid usage in sitemap.xml and robots.txt
