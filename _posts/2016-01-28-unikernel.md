@@ -4,9 +4,6 @@ layout: post
 title: Unikernel 
 ---
 
-# Unikernel
-
-
 The first time I learned about Unikernel was from [What is a ‘unikernel’?](https://ma.ttias.be/what-is-a-unikernel/) when glancing through posts from Pocket Recommended on my shuttle bus the other day. It's totally out of curiosity and "Recommended" usually means a lot of people are watching it. After a quick read, I didn't get the point. Is it something [Docker](http://roadtounikernels.myriabit.com/) ? I forgot about it as soon as I got off the shuttle bus.
 
 Then came the news that [Unikernel Systems Joins Docker](http://blog.docker.com/2016/01/unikernel/). Interesting ! Meanwhile, I was looking for materials for weekly internal sharing at work. Why didn't I share about Unikernels ? I went on to google and found a bunch of resources from [Wikipedia](https://en.wikipedia.org/wiki/Unikernel), [Xen Wiki](https://wiki.xenproject.org/wiki/Unikernels
