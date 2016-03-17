@@ -44,12 +44,12 @@ Note that realtime here means 15 mins so a low latency streaming engine like Sto
 
 ## Core
 
-Spark 2.0 will add a infinite dataframes API for Spark Streaming.
+Spark 2.0 will add an infinite Dataframes API for Spark Streaming, unified with the existing Dataframes API for batch processing.  Event-time aggregations will finally arrive in Spark Streaming.
 
 1. [The Future of Real-Time in Spark](https://spark-summit.org/east-2016/events/keynote-day-3/) by Reynold Xin, Databricks
 2. [Structuring Spark Dataframes, Datasets and Streaming](https://spark-summit.org/east-2016/events/structuring-spark-dataframes-datasets-and-streaming/) by Michael Amburst, Databricks.
 
-Meanwhile, Back pressure and Elastic Scaling are two important features being added.
+Meanwhile, Back pressure and Elastic Scaling are two important features under development.
 
 1. [Reactive Streams, linking Reactive Application to Spark Streaming](https://spark-summit.org/east-2016/events/building-robust-scalable-and-adaptive-applications-on-spark-streaming/) by Luc Bourlier, Lightbend.
 2. [Building Robust, Scalable and Adaptive Applications on Spark Streaming](https://spark-summit.org/east-2016/events/reactive-streams-linking-reactive-application-to-spark-streaming/) by Tathagata Das, Databricks.
