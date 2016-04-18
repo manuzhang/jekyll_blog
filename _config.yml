@@ -1,9 +1,10 @@
 ##The website title
 name: Sisyphus Happy
 ##Markdown processor
-markdown: redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "autolink", "tables"]
+markdown: kramdown 
+kramdown:
+  entity_output: numeric
+  input: GFM
 
 highlighter: rouge
 
