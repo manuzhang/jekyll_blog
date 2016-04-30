@@ -1,24 +1,18 @@
-<div class="grid">
-	<div class="unit whole about">
-		<p>
-			{% if site.about_image %}
-				<img src="/img/{{ site.about_image }}" alt="Avatar">
-			{% elsif site.links.github %}
-				<img src="https://github.com/{{ site.links.github }}.png" alt="Avatar">
-			{% else %}
-				<img src="/img/placeholder.jpg" alt="Avatar">
-			{% endif %}
-		</p>
-		<ul class="links">
-			{% if site.links.github %}
-				<li><a href="https://github.com/{{ site.links.github }}" target="_blank">Github</a></li>
-			{% endif %}
-			{% if site.links.twitter %}
-				<li><a href="https://twitter.com/{{ site.links.twitter }}" target="_blank">Twitter</a></li>
-			{% endif %}
-			{% if site.links.email %}
-				<li><a href="mailto:{{ site.links.email }}">Contact Me</a></li>
-			{% endif %}
-		</ul>
-	</div>
-</div>
+<nav>
+  <h1>Hey,</h1>
+  <a href="/">
+    {% if site.data.theme.social.gravatar %}
+    <img src="http://www.gravatar.com/avatar/{{ site.data.theme.social.gravatar }}?s=200" id="gravatar" alt="My photo"/>
+    {% else %}
+    <!--<img src="/logo.png" id="logo" alt="Blog logo"/>-->
+    {% endif %}
+  </a>
+  <h2>I'm <a href="/">{{ site.data.theme.name }}</a>.</h2>
+  <div id="bio">
+    <p>I'm a software engineer from China</p>
+    <p>I train my model here with Big Data</p>
+  </div>
+  <div id="social">
+    {% include social.html %}
+  </div>
+</nav>

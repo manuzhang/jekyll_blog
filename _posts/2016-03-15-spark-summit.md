@@ -70,4 +70,4 @@ Other less interesting use cases
 
 ## References
 
-1. https://spark-summit.org/east-2016/schedule/
+1. [https://spark-summit.org/east-2016/schedule/](https://spark-summit.org/east-2016/schedule/)
