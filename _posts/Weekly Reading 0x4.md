@@ -1,0 +1,51 @@
+---
+comments: true
+layout: post
+title: Weekly Reading 0x4
+---
+
+I'd like to start this week with something other than code but [how to present code](http://www.slideshare.net/LookAtMySlides/codeware). There are 5 basic rules to follow,
+
+1. use monospaced fonts 
+2. use big fonts
+3. use syntax highlighting only where needed
+4. use ellipsis
+5. use screen annotation
+
+*Remember your slides are not your IDE*
+
+Now let's get down to code. 
+
+### Streaming
+
+* Unlike the batch world where Spark "rules" (Tez, Flink anyone?), the streaming world has entered into a war era. There are so many [streaming solutions](https://github.com/manuzhang/awesome-streaming), each of which has its own pros and cons. Need an apple-to-apple comparison ? [An Overview of Apache Streaming Technologies](https://databaseline.wordpress.com/2016/03/12/an-overview-of-apache-streaming-technologies/) is for you.
+* Although listed in the previous comparison, [Apache Beam](http://beam.incubator.apache.org/) is not yet another streaming technology but 
+
+  > provide the world with an easy-to-use, but powerful model for data-parallel processing, both streaming and batch, portable across a variety of runtime platforms
+  
+ It's formerly [Google Cloud Dataflow SDK](https://cloud.google.com/dataflow/) and requires a runner (e.g. Google Cloud Dataflow, Flink, Spark) to work. [Why Apache Beam? A Google Perspective](https://cloud.google.com/blog/big-data/2016/05/why-apache-beam-a-google-perspective) explains why (open sourcing) the project makes sense for Google, and from the business perspective too.
+
+  > That motivation hinges primarily on the desire to get as many Apache Beam pipelines as possible running on Cloud Dataflow.
+
+* Beam has such nice feature as auto-scaling. [Streaming Auto-scaling in Google Cloud Dataflow](http://www.infoq.com/presentations/google-cloud-dataflow) has more details.
+
+* Apache Kafka has a data structure called purgatory, which *holds any request that hasn't yet met its criteria to succeed but also hasn't yet resulted in an error*. [Apache Kafka, Purgatory, and Hierarchical Timing Wheels](http://www.confluent.io/blog/apache-kafka-purgatory-hierarchical-timing-wheels) talks about how Kafka efficiently keep track of tens of thousands of requests that are being asynchronously satisfied by other activity in the cluster. [Hierarchical Timing Wheels](http://www.cs.columbia.edu/~nahum/w6998/papers/ton97-timing-wheels.pdf) is really a great data structure to know.
+
+* [Storm 1.0.1 is released](https://storm.apache.org/2016/05/06/storm101-released.html) as a maintenance release that includes a number of important bug fixes that improve Storm's performance, stability and fault tolerance.
+
+### Database
+
+> “Does the Database Community Have an Identity Crisis?’’
+
+* The answer is yes, according to Peter Bailis. He looks at yesterday and today of database research and offers advice for tomorrow to [make fossils productive again](http://www.bailis.org/blog/how-to-make-fossils-productive-again).
+
+
+### Machine Learning
+
+* [DeepMind moves to TensorFlow](http://googleresearch.blogspot.jp/2016/04/deepmind-moves-to-tensorflow.html) after [Torch7](http://torch.ch/) has served as their primary research platform for nearly four years.
+
+### Others
+
+* Julia Evans is bothered at work by that people who knows amazing things often get knowledge stuck in their head and others don't end up learning it. He looks into this in [How does knowledge get locked up in people's heads?](http://jvns.ca/blog/2016/04/30/building-expertise-at-work/). I've been a fan of sharing at work, and as he Julia says, being asked questions will make you an expert. 
+
+Think about it. I'll leave you here.
