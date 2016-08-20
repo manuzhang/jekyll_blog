@@ -10,4 +10,7 @@
       </ul>
     </div>
   </nav>
+  {% if jekyll.environment == 'production' %}
+  {% include analytics.html %}
+  {% endif %}
 </header>

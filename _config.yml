@@ -27,6 +27,7 @@ disqus: manuzhang
 ##set this to enable google analytics
 #ga_id: analyticsID
 #ga_domain: analyticsDomain
+google_analytics: UA-82862826-1
 
 ##Some commonly used links
 links:
