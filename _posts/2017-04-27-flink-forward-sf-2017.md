@@ -8,10 +8,10 @@ title: Flink Forward SF 2017 Readings
 
 ### TensorFlow with Flink
 
-> -"What is so hot ?"
+> -"What is so hot ?"   
 > -"Deep learning"
 > 
-> -"What is so hot in deep learning ?"
+> -"What is so hot in deep learning ?"    
 > -"TensorFlow"
 
 [TensorFlow & Apache Flink](https://www.slideshare.net/FlinkForward/flink-forward-sf-2017-eron-wright-introducing-flink-tensorflow) immediately caught my eye. The basic idea is "TF Graph as a Flink map function" for inference after preprocessing data to off-heap tensor. Online learning is a future direction and the project is [open sourced on GitHub](https://github.com/cookieai/flink-tensorflow/).
@@ -34,7 +34,7 @@ By the way, [Apache Storm has added PMML support in 1.1.0](http://storm.apache.o
 > -"Which machine learning (ML) framework is the best ?"
 > -"All of them"
 
-That's Ted Dunning's answer after learning that his customers typically use 12 ML packages and the smallest number is 5. That's why he won't talk about Flink ML in [Machine Learning on Flink](https://www.slideshare.net/FlinkForward/flink-forward-sf-2017-ted-dunning-nonflink-machine-learning-on-flink). Even  ML is not the key here. 
+That's Ted Dunning's answer after learning that his customers typically use 12 ML packages and the smallest number is 5. That's why he didn't talk about Flink ML in [Machine Learning on Flink](https://www.slideshare.net/FlinkForward/flink-forward-sf-2017-ted-dunning-nonflink-machine-learning-on-flink). Even  ML is not the key here. 
 
 > 90%+ of effort is logistics, not learning.
 
