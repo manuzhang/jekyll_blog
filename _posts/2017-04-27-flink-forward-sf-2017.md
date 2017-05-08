@@ -6,6 +6,8 @@ title: Flink Forward SF 2017 Readings
 
 [Flink Forward](http://sf.flink-forward.org/), "The premier conference on Apache Flink®", just took place in San Francisco. All the [slides](https://www.slideshare.net/FlinkForward) and [videos](https://www.youtube.com/playlist?list=PLDX4T_cnKjD2UC6wJr_wRbIvtlMtkc-n2) are available now. The conference was both abundant in practical experiences and technical details. After going through all the slides, I'd like to share some interesting contents that you can't find on [http://flink.apache.org/](http://flink.apache.org/). (I wasn't there and neither have I watched all the videos so take my readings with a grain of salt)
 
+*Update: data Artisans has published an official [recap: On the State of Stream Processing with Apache Flink](https://data-artisans.com/blog/stream-processing-flink-forward-sf-2017-recap)*
+
 ### TensorFlow with Flink
 
 > -"What is so hot ?"   
