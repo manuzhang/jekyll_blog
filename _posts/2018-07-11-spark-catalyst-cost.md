@@ -4,7 +4,7 @@ layout: post
 title: The hidden cost of Spark withColumn
 --- 
 
-Recently, we've been working on machine learning pipeline with Spark, where [Spark SQL & DataFrame](https://spark.apache.org/sql/) is used for data preprocessing and [MLLib](https://spark.apache.org/mllib/) for training. In one use case, the data source is a very wide Hive table of ~1000 columns. The columns are stored in String so we need to cast them to Integer before they can be fed into model training.
+Recently, we've been working on machine learning pipeline with Spark, where [Spark SQL & DataFrame](https://spark.apache.org/sql/) is used for data preprocessing and [MLlib](https://spark.apache.org/mllib/) for training. In one use case, the data source is a very wide Hive table of ~1000 columns. The columns are stored in String so we need to cast them to Integer before they can be fed into model training.
 
 This was what I got initially with DataFrame Scala API (2.2.0).
 
@@ -14,7 +14,7 @@ df.columns.foldLeft(df) { case (df, col) =>
 }
 ```
 
-Since DataFrame is immutable, I created a new `DataFrame` for each `Column` casted using `withColumn`. I didn't think that was be a big deal since at run time all columns would be casted in one shot thanks to [Spark's catalyst optimizer](https://databricks.com/blog/2015/04/13/deep-dive-into-spark-sqls-catalyst-optimizer.html). 
+Since DataFrame is immutable, I created a new `DataFrame` for each `Column` casted using `withColumn`. I didn't think that was be a big deal since at run time all columns would be casted in one shot thanks to [Spark's Catalyst optimizer](https://databricks.com/blog/2015/04/13/deep-dive-into-spark-sqls-catalyst-optimizer.html). 
 
 > At its core, Catalyst contains a general library for representing trees and applying rules to manipulate them. On top of this framework, we have built libraries specific to relational query processing (e.g., expressions, logical query plans), and several sets of rules that handle different phases of query execution: analysis, logical optimization, physical planning, and code generation to compile parts of queries to Java bytecode
 
