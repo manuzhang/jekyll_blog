@@ -58,20 +58,20 @@ The solution is to override `main` method of `scala.App` and put everything in i
 ### Appendix
 1. How to decompile the anonymous function passed to `foreachPartition` ?
 
-  ```
-  javap -c Test\$\$anonfun\$1 
-  ```
+    ```
+    javap -c Test\$\$anonfun\$1 
+    ```
   
 2. How to enable driver's debug log ?
 
-   Prepare a `log4j.properties` file with 
+    Prepare a `log4j.properties` file with 
    
-   ```
-   log4j.rootLogger=DEBUG
-   ```
+    ```
+    log4j.rootLogger=DEBUG
+    ```
    
-   and submit a Spark application with
+    and submit a Spark application with
    
-   ```
-   --driver-java-options "-Dlog4j.configuration=file:/path/to/log4j.properties"
-   ```
+    ```
+    --driver-java-options "-Dlog4j.configuration=file:/path/to/log4j.properties"
+    ```
