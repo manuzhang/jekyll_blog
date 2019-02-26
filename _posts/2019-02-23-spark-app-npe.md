@@ -34,7 +34,7 @@ The local variables `foo` and `bar` are used to configure the `DbClient` on remo
 
 My colleague Vincent pointed me to `ClosureCleaner` which `logDebug` [all fields, methods and classes](https://github.com/apache/spark/blob/v2.3.1/core/src/main/scala/org/apache/spark/util/ClosureCleaner.scala#L221) in closures. I enabled driver's debug log and the absence of `foo` and `bar` assured me that they were not captured by closure. 
 
-Then I looked into the byte code of what's executed in `foreachPartition`. It reminded me that `foo` and `bar` were static members of `Test$` rather than local variables.
+Then I looked into what happens in `foreachPartition`. The byte code reminded me that `foo` and `bar` were static members of `Test$` rather than local variables.
  
 ```bash
       9: getstatic      #26                 // Field Test$.MODULE$:LTest$;
@@ -42,7 +42,10 @@ Then I looked into the byte code of what's executed in `foreachPartition`. It re
       15: invokevirtual #34                 // Method DbClient.setFoo:(Ljava/lang/String;)V
 ```
 
-**It suddenly struck me that the initialization of the class (`Test$`) that extends `scala.App` is actually delayed to its `main()` method**. That's why `foo` and `bar` were uninitialized.
+**It suddenly struck me that the initialization of the class (`Test$`) that extends `scala.App` is actually delayed to its `main()` method**. That's why `foo` and `bar` were uninitialized as confirmed by [scala.App's doc](https://scala-lang.org/files/archive/api/2.11.12/#scala.App),
+
+> It should be noted that this trait is implemented using the [DelayedInit](https://scala-lang.org/files/archive/api/2.11.12/scala/DelayedInit.html) functionality, which means that fields of the object will not have been initialized before the main method has been executed.
+
 
 Meanwhile, I googled "Spark closure problems" which led me to an ancient Spark jira [Closure problems when running Scala app that "extends App"](https://issues.apache.org/jira/browse/SPARK-4170). There was a fix that would print a warning when an application extends `App`. 
 
